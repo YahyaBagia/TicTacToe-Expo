@@ -1,0 +1,1 @@
+"serviceWorker"in navigator&&window.addEventListener("load",(function(){navigator.serviceWorker.register("/tic-tac-toe-expo/expo-service-worker.js",{scope:"/tic-tac-toe-expo/"}).then((function(e){})).catch((function(e){console.info("Failed to register service-worker",e)}))}));
