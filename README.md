@@ -2,7 +2,7 @@
 <br />
 <p align="center">
   <a href="https://github.com/YahyaBagia/TicTacToe-Expo/">
-    <img src="ReadMeAssets/logo.png" alt="Logo">
+    <img src="ReadMeAssets/Logo.png" alt="Logo">
     <p>
       <strong><h1 align="center">⭐ Tic-Tac-Toe ⭐</h1></strong>
     </p>
@@ -28,7 +28,7 @@
 
 ## About The Project
 
-<img src="ReadMeAssets/WebScreenshot.png" alt="Logo">
+<img src="ReadMeAssets/WebScreenshot.png" alt="Screenshot">
 
 A simple Tic-Tac-Toe game to be played against the computer or another player. While there are greate implementations of Tic-Tac-Toe are available on the internet, mine is just a small contribution to the list of open source implementations. It was made as a part of practicing react-native with [typescript](https://www.typescriptlang.org/) using [expo](https://www.expo.io/).
 
