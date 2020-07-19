@@ -1,15 +1,19 @@
 self.__precacheManifest = [
   {
-    "revision": "b9b7549533b206b25ca9",
-    "url": "/TicTacToe-Expo/static/js/app.d3d11643.chunk.js"
+    "revision": "868352152e864c2da42a",
+    "url": "/TicTacToe-Expo/static/js/app.00e2ac79.chunk.js"
   },
   {
     "revision": "71fe62455b25cf9596ee",
     "url": "/TicTacToe-Expo/static/js/runtime~app.e17f27cc.js"
   },
   {
-    "revision": "afa779a64cc0b6fc7607",
-    "url": "/TicTacToe-Expo/static/js/2.6138317c.chunk.js"
+    "revision": "81f52f4670defd1ca723",
+    "url": "/TicTacToe-Expo/static/js/2.fe54c0f3.chunk.js"
+  },
+  {
+    "revision": "0d6adf7d915c24e176f22d26e799f527",
+    "url": "/TicTacToe-Expo/static/media/ForkOnGithub.0c95a7c5.png"
   },
   {
     "revision": "9b94499ccea3bd82b24cb210733c4b5e",
@@ -20,7 +24,7 @@ self.__precacheManifest = [
     "url": "/TicTacToe-Expo/expo-service-worker.js"
   },
   {
-    "revision": "2ad0b8e31e54cfbad2a139a654ab2828",
+    "revision": "bd50ac03b3dd8e38a0d250f12b91012a",
     "url": "/TicTacToe-Expo/index.html"
   },
   {
@@ -33,7 +37,7 @@ self.__precacheManifest = [
   },
   {
     "revision": "1cca25f2e61cdb7dd28b898e81578b23",
-    "url": "/TicTacToe-Expo/static/js/2.6138317c.chunk.js.LICENSE.txt"
+    "url": "/TicTacToe-Expo/static/js/2.fe54c0f3.chunk.js.LICENSE.txt"
   },
   {
     "revision": "71033553ddc0843407efe54c23890fe2",
@@ -48,7 +52,7 @@ self.__precacheManifest = [
     "url": "/TicTacToe-Expo/favicon.ico"
   },
   {
-    "revision": "a03429567fd4d90ea406b78488bb7f58",
+    "revision": "68b76447cc96abc9eadbe9798d3aef3a",
     "url": "/TicTacToe-Expo/manifest.json"
   }
 ];
