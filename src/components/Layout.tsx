@@ -1,6 +1,18 @@
 import React from "react";
-import { View, SafeAreaView, ViewStyle, Platform } from "react-native";
+import {
+  View,
+  SafeAreaView,
+  ViewStyle,
+  Platform,
+  Dimensions,
+  Image,
+  TouchableOpacity,
+  Linking,
+} from "react-native";
+
 import { BackgroundColor } from "../common/Const";
+
+const { width } = Dimensions.get("screen");
 
 interface LayoutProps {
   style?: ViewStyle;
@@ -13,13 +25,28 @@ const Layout: React.FC<LayoutProps> = ({ children, style }) => {
         style={{
           backgroundColor: BackgroundColor,
           flex: 1,
-          width: Platform.OS === "web" ? 480 : "100%",
+          width: Platform.OS === "web" ? (width > 480 ? 480 : width) : "100%",
           padding: 15,
           ...style,
         }}
       >
         {children}
       </SafeAreaView>
+      <TouchableOpacity
+        style={{
+          position: "absolute",
+          top: 0,
+          right: 0,
+        }}
+        onPress={() => {
+          Linking.openURL("https://github.com/YahyaBagia/TicTacToe-Expo");
+        }}
+      >
+        <Image
+          source={require("../../assets/ForkOnGithub.png")}
+          style={{ width: 130, height: 130 }}
+        />
+      </TouchableOpacity>
     </View>
   );
 };
