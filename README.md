@@ -18,7 +18,8 @@
 
 ## Table of Contents
 
-- [About the Project](#about-the-project)
+- [Table of Contents](#table-of-contents)
+- [About The Project](#about-the-project)
 - [Getting Started](#getting-started)
   - [Prerequisites](#prerequisites)
   - [Setup](#setup)
@@ -28,7 +29,13 @@
 
 ## About The Project
 
-<img src="ReadMeAssets/WebScreenshot.png" alt="Screenshot">
+<table>
+<tr>
+<td><img src="ReadMeAssets/Screenshot1.png" alt="Screenshot"></td>
+<td><img src="ReadMeAssets/Screenshot2.png" alt="Screenshot"></td>
+<td><img src="ReadMeAssets/Screenshot3.png" alt="Screenshot"></td>
+</tr>
+</table>
 
 A simple Tic-Tac-Toe game to be played against the computer or another player. While there are greate implementations of Tic-Tac-Toe are available on the internet, mine is just a small contribution to the list of open source implementations. It was made as a part of practicing react-native with [typescript](https://www.typescriptlang.org/) using [expo](https://www.expo.io/).
 
@@ -40,13 +47,13 @@ You can try out this project on the [web](https://yahyabagia.github.io/TicTacToe
 
 ### Prerequisites
 
-Make sure you have yarn and node installed.
-
-- Yarn : Click [here](https://yarnpkg.com/) to learn more.
+Make sure you have the following CLIs installed on your machine.
 
 - Node : Click [here](https://nodejs.org/) to learn more.
 
 - npm : `npm install npm@latest -g`
+
+- Yarn : `npm install -g yarn` (Click [here](https://yarnpkg.com/) to learn more.)
 
 - Expo : `npm install -g expo-cli` (Click [here](https://docs.expo.io/get-started/installation/) to learn more.)
 
@@ -58,7 +65,7 @@ Make sure you have yarn and node installed.
 git clone https://github.com/YahyaBagia/TicTacToe-Expo.git
 ```
 
-2. Install packages (because you need `node_modules` 💪 directory)
+2. Install packages (because you need `node_modules` directory)
 
 ```sh
 yarn
