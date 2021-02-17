@@ -1,11 +1,11 @@
 {
   "files": {
-    "app.js": "/TicTacToe-Expo/static/js/app.00e2ac79.chunk.js",
-    "app.js.map": "/TicTacToe-Expo/static/js/app.00e2ac79.chunk.js.map",
+    "app.js": "/TicTacToe-Expo/static/js/app.f336e622.chunk.js",
+    "app.js.map": "/TicTacToe-Expo/static/js/app.f336e622.chunk.js.map",
     "runtime~app.js": "/TicTacToe-Expo/static/js/runtime~app.e17f27cc.js",
     "runtime~app.js.map": "/TicTacToe-Expo/static/js/runtime~app.e17f27cc.js.map",
-    "static/js/2.fe54c0f3.chunk.js": "/TicTacToe-Expo/static/js/2.fe54c0f3.chunk.js",
-    "static/js/2.fe54c0f3.chunk.js.map": "/TicTacToe-Expo/static/js/2.fe54c0f3.chunk.js.map",
+    "static/js/2.1f674d9e.chunk.js": "/TicTacToe-Expo/static/js/2.1f674d9e.chunk.js",
+    "static/js/2.1f674d9e.chunk.js.map": "/TicTacToe-Expo/static/js/2.1f674d9e.chunk.js.map",
     "fonts/Pacifico-Regular.ttf": "/TicTacToe-Expo/./fonts/Pacifico-Regular.ttf",
     "favicon-16.png": "/TicTacToe-Expo/favicon-16.png",
     "favicon-32.png": "/TicTacToe-Expo/favicon-32.png",
@@ -13,12 +13,12 @@
     "index.html": "/TicTacToe-Expo/index.html",
     "manifest.json": "/TicTacToe-Expo/manifest.json",
     "serve.json": "/TicTacToe-Expo/serve.json",
-    "static/js/2.fe54c0f3.chunk.js.LICENSE.txt": "/TicTacToe-Expo/static/js/2.fe54c0f3.chunk.js.LICENSE.txt",
+    "static/js/2.1f674d9e.chunk.js.LICENSE.txt": "/TicTacToe-Expo/static/js/2.1f674d9e.chunk.js.LICENSE.txt",
     "static/media/ForkOnGithub.png": "/TicTacToe-Expo/static/media/ForkOnGithub.0c95a7c5.png"
   },
   "entrypoints": [
     "static/js/runtime~app.e17f27cc.js",
-    "static/js/2.fe54c0f3.chunk.js",
-    "static/js/app.00e2ac79.chunk.js"
+    "static/js/2.1f674d9e.chunk.js",
+    "static/js/app.f336e622.chunk.js"
   ]
 }
