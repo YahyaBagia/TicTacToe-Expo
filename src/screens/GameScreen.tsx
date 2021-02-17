@@ -1,7 +1,11 @@
 import React, { useState, useEffect } from "react";
+import {
+  View,
+  Text,
+  GestureResponderEvent,
+  TouchableOpacity,
+} from "react-native";
 import { RouteProp } from "@react-navigation/native";
-import { View, Text, GestureResponderEvent } from "react-native";
-import { TouchableWithoutFeedback } from "react-native-gesture-handler";
 import { StackNavigationProp } from "@react-navigation/stack";
 
 import { StackParamList } from "../Types";
@@ -69,7 +73,7 @@ const GameScreen: React.FC<GameScreenProps> = ({ navigation, route }) => {
   const sleep = (seconds = 1) => {
     return new Promise((resolve, reject) => {
       setTimeout(() => {
-        resolve();
+        resolve(null);
       }, seconds * 1000);
     });
   };
@@ -316,7 +320,7 @@ const GridItem: React.FC<GridItemProps> = ({
   onPress,
   isWinningIndex,
 }) => (
-  <TouchableWithoutFeedback
+  <TouchableOpacity
     onPress={(event: GestureResponderEvent) => onPress(index)}
     style={{
       backgroundColor: "#2c3045",
@@ -327,8 +331,9 @@ const GridItem: React.FC<GridItemProps> = ({
       alignItems: "center",
       justifyContent: "center",
     }}
+    activeOpacity={1}
   >
-    {state !== "EMPTY" && (
+    {state !== "EMPTY" ? (
       <Text
         style={{
           width: "100%",
@@ -346,8 +351,10 @@ const GridItem: React.FC<GridItemProps> = ({
       >
         {state === "CROSS" ? "X" : "O"}
       </Text>
+    ) : (
+      <></>
     )}
-  </TouchableWithoutFeedback>
+  </TouchableOpacity>
 );
 
 export default GameScreen;
