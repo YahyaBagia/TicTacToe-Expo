@@ -3,10 +3,10 @@ import { Text, View } from "react-native";
 import { StackNavigationProp } from "@react-navigation/stack";
 
 import Layout from "../components/Layout";
-import { FontFamily } from "../common/Const";
 import Button from "../components/Button";
 
 import { StackParamList } from "../Types";
+import { Font } from "../common/Const";
 
 type HomeScreenNavigationProps = StackNavigationProp<
   StackParamList,
@@ -23,8 +23,8 @@ const HomeScreen: React.FC<HomeScreenProps> = ({ navigation }) => {
       <View style={{ height: "50%", justifyContent: "center" }}>
         <Text
           style={{
-            fontFamily: FontFamily,
-            fontSize: 60,
+            fontFamily: Font.FontName,
+            fontSize: 50,
             color: "white",
             textAlign: "center",
           }}

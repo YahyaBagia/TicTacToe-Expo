@@ -8,10 +8,13 @@ import {
 import { RouteProp } from "@react-navigation/native";
 import { StackNavigationProp } from "@react-navigation/stack";
 
-import { StackParamList } from "../Types";
-import { ForegroundColor, FontFamily } from "../common/Const";
+import Utils from "../common/Utils";
+import { Font, ForegroundColor, Sounds } from "../common/Const";
+
 import Layout from "../components/Layout";
 import Button from "../components/Button";
+
+import { StackParamList } from "../Types";
 
 type GameScreenNavigationProps = StackNavigationProp<
   StackParamList,
@@ -70,16 +73,16 @@ const GameScreen: React.FC<GameScreenProps> = ({ navigation, route }) => {
     }
   }, [turn]);
 
-  const sleep = (seconds = 1) => {
-    return new Promise((resolve, reject) => {
-      setTimeout(() => {
-        resolve(null);
-      }, seconds * 1000);
-    });
-  };
+  useEffect(() => {
+    if (gameState === "Game Over") {
+      Utils.playSound(Sounds.Game_Won);
+    } else if (gameState === "Game Draw") {
+      Utils.playSound(Sounds.Game_Draw);
+    }
+  }, [gameState]);
 
   const onBotsTurn = async () => {
-    await sleep();
+    await Utils.sleep();
     //TAKE TURN AUTOMATICALLY
     let emptyIndexes: number[] = [];
     grids.map((grid, index) => {
@@ -173,6 +176,7 @@ const GameScreen: React.FC<GameScreenProps> = ({ navigation, route }) => {
       let newGrids = [...grids];
       newGrids[index] = turn;
       setGrids([...newGrids]);
+      Utils.playSound(Sounds.Move_Sound);
     }
   };
 
@@ -198,9 +202,8 @@ const GameScreen: React.FC<GameScreenProps> = ({ navigation, route }) => {
     <Layout style={{ justifyContent: "center" }}>
       <Text
         style={{
-          fontFamily: FontFamily,
+          fontFamily: Font.FontName,
           fontSize: 45,
-          fontWeight: "bold",
           color: ForegroundColor,
           textAlign: "center",
         }}
@@ -338,9 +341,8 @@ const GridItem: React.FC<GridItemProps> = ({
         style={{
           width: "100%",
           textAlign: "center",
-          fontFamily: FontFamily,
-          fontSize: isWinningIndex ? 60 : 50,
-          fontWeight: "bold",
+          fontSize: isWinningIndex ? 65 : 45,
+          fontFamily: Font.FontName,
           color: ForegroundColor,
           textShadowColor: isWinningIndex ? ForegroundColor : undefined,
           textShadowOffset: isWinningIndex

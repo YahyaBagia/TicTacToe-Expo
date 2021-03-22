@@ -10,7 +10,7 @@ import {
   Linking,
 } from "react-native";
 
-import { BackgroundColor } from "../common/Const";
+import { BackgroundColor, Images } from "../common/Const";
 
 const { width } = Dimensions.get("screen");
 
@@ -25,7 +25,8 @@ const Layout: React.FC<LayoutProps> = ({ children, style }) => {
         style={{
           backgroundColor: BackgroundColor,
           flex: 1,
-          width: Platform.OS === "web" ? (width > 480 ? 480 : width) : "100%",
+          width: "100%", //Platform.OS === "web" ? (width > 480 ? 480 : width) : "100%",
+          maxWidth: 480,
           padding: 15,
           ...style,
         }}
@@ -43,7 +44,7 @@ const Layout: React.FC<LayoutProps> = ({ children, style }) => {
         }}
       >
         <Image
-          source={require("../../assets/ForkOnGithub.png")}
+          source={Images.ForkOnGithub}
           style={{ width: 130, height: 130 }}
         />
       </TouchableOpacity>

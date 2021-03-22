@@ -1,7 +1,7 @@
 import React from "react";
 import { TouchableOpacity, Text, ViewStyle } from "react-native";
 
-import { FontFamily, ForegroundColor } from "../common/Const";
+import { Font, ForegroundColor } from "../common/Const";
 
 interface ButtonProps {
   title: string;
@@ -24,11 +24,10 @@ const Button: React.FC<ButtonProps> = ({ title, onPress, style }) => {
     >
       <Text
         style={{
-          fontFamily: FontFamily,
+          fontFamily: Font.FontName,
           fontSize: 25,
           color: "#333027",
           textAlign: "center",
-          fontWeight: "bold",
         }}
       >
         {title}
