@@ -1,10 +1,5 @@
 import React, { useState, useEffect } from "react";
-import {
-  View,
-  Text,
-  GestureResponderEvent,
-  TouchableOpacity,
-} from "react-native";
+import { View, Text, TouchableOpacity } from "react-native";
 import { RouteProp } from "@react-navigation/native";
 import { StackNavigationProp } from "@react-navigation/stack";
 
@@ -32,16 +27,8 @@ const GameScreen: React.FC<GameScreenProps> = ({ navigation, route }) => {
   const { gameWith = "Bot" } = route.params;
 
   const [turn, setTurn] = useState<"CROSS" | "ZERO">("CROSS");
-  const [grids, setGrids] = useState<Array<"CROSS" | "ZERO" | "EMPTY">>([
-    "EMPTY",
-    "EMPTY",
-    "EMPTY",
-    "EMPTY",
-    "EMPTY",
-    "EMPTY",
-    "EMPTY",
-    "EMPTY",
-    "EMPTY",
+  const [grids, setGrids] = useState<Array<"CROSS" | "ZERO" | undefined>>([
+    ...new Array(9),
   ]);
   const [gameState, setGameState] = useState<"Game Over" | "Game Draw" | "">(
     ""
@@ -54,12 +41,10 @@ const GameScreen: React.FC<GameScreenProps> = ({ navigation, route }) => {
       return;
     }
 
-    //CHECK WIN LOGIC
     const didSomeoneWon = checkWinner();
-    //CHECK IF GAME DRAW
     if (didSomeoneWon) {
       setGameState("Game Over");
-    } else if (didSomeoneWon === false && grids.includes("EMPTY") === false) {
+    } else if (didSomeoneWon === false && grids.includes(undefined) === false) {
       setGameState("Game Draw");
     } else {
       setTurn(turn === "CROSS" ? "ZERO" : "CROSS");
@@ -75,18 +60,18 @@ const GameScreen: React.FC<GameScreenProps> = ({ navigation, route }) => {
 
   useEffect(() => {
     if (gameState === "Game Over") {
-      Utils.playSound(Sounds.Game_Won);
+      Utils.PlaySound(Sounds.Game_Won);
     } else if (gameState === "Game Draw") {
-      Utils.playSound(Sounds.Game_Draw);
+      Utils.PlaySound(Sounds.Game_Draw);
     }
   }, [gameState]);
 
   const onBotsTurn = async () => {
-    await Utils.sleep();
+    await Utils.Sleep();
     //TAKE TURN AUTOMATICALLY
     let emptyIndexes: number[] = [];
     grids.map((grid, index) => {
-      if (grid === "EMPTY") {
+      if (grid === undefined) {
         emptyIndexes.push(index);
       }
     });
@@ -96,69 +81,35 @@ const GameScreen: React.FC<GameScreenProps> = ({ navigation, route }) => {
   };
 
   const checkWinner = (): boolean => {
-    if (
-      grids[0] !== "EMPTY" &&
-      grids[0] === grids[1] &&
-      grids[1] === grids[2]
-    ) {
-      setWinner(grids[0]);
-      setWinningIndexes([0, 1, 2]);
-      return true;
-    } else if (
-      grids[3] !== "EMPTY" &&
-      grids[3] === grids[4] &&
-      grids[4] === grids[5]
-    ) {
-      setWinner(grids[3]);
-      setWinningIndexes([3, 4, 5]);
-      return true;
-    } else if (
-      grids[6] !== "EMPTY" &&
-      grids[6] === grids[7] &&
-      grids[7] === grids[8]
-    ) {
-      setWinner(grids[6]);
-      setWinningIndexes([6, 7, 8]);
-      return true;
-    } else if (
-      grids[0] !== "EMPTY" &&
-      grids[0] === grids[3] &&
-      grids[3] === grids[6]
-    ) {
-      setWinner(grids[0]);
-      setWinningIndexes([0, 3, 6]);
-      return true;
-    } else if (
-      grids[1] !== "EMPTY" &&
-      grids[1] === grids[4] &&
-      grids[4] === grids[7]
-    ) {
-      setWinner(grids[1]);
-      setWinningIndexes([1, 4, 7]);
-      return true;
-    } else if (
-      grids[2] !== "EMPTY" &&
-      grids[2] === grids[5] &&
-      grids[5] === grids[8]
-    ) {
-      setWinner(grids[2]);
-      setWinningIndexes([2, 5, 8]);
-      return true;
-    } else if (
-      grids[0] !== "EMPTY" &&
-      grids[0] === grids[4] &&
-      grids[4] === grids[8]
-    ) {
-      setWinner(grids[0]);
-      setWinningIndexes([0, 4, 8]);
-      return true;
-    } else if (
-      grids[2] !== "EMPTY" &&
-      grids[2] === grids[4] &&
-      grids[4] === grids[6]
-    ) {
-      setWinner(grids[2]);
-      setWinningIndexes([2, 4, 6]);
+    const winArrays = [
+      [0, 1, 2],
+      [3, 4, 5],
+      [6, 7, 8],
+
+      [0, 3, 6],
+      [1, 4, 7],
+      [2, 5, 8],
+
+      [0, 4, 8],
+      [2, 4, 6],
+    ];
+
+    const winningIndexArray = winArrays.find((winArr) => {
+      const [first, second, third] = winArr;
+      if (
+        grids[first] !== undefined &&
+        grids[first] === grids[second] &&
+        grids[second] === grids[third]
+      ) {
+        return winArr;
+      }
+    });
+
+    if (winningIndexArray !== undefined) {
+      const [first] = winningIndexArray;
+      const winner = grids[first];
+      setWinner(winner);
+      setWinningIndexes(winningIndexArray);
       return true;
     }
     return false;
@@ -170,29 +121,18 @@ const GameScreen: React.FC<GameScreenProps> = ({ navigation, route }) => {
     if (gameWith === "Bot" && turn === "ZERO" && !byBot) {
       isValidTurn = false;
     }
-    const isGridEmpty = grids[index] === "EMPTY";
 
-    if (canGameContinue && isValidTurn && isGridEmpty) {
+    if (canGameContinue && isValidTurn && grids[index] === undefined) {
       let newGrids = [...grids];
       newGrids[index] = turn;
       setGrids([...newGrids]);
-      Utils.playSound(Sounds.Move_Sound);
+      Utils.PlaySound(Sounds.Move_Sound);
     }
   };
 
   const onReset = () => {
     setTurn("CROSS");
-    setGrids([
-      "EMPTY",
-      "EMPTY",
-      "EMPTY",
-      "EMPTY",
-      "EMPTY",
-      "EMPTY",
-      "EMPTY",
-      "EMPTY",
-      "EMPTY",
-    ]);
+    setGrids([...new Array(9)]);
     setGameState("");
     setWinner(undefined);
     setWinningIndexes([]);
@@ -233,66 +173,32 @@ const GameScreen: React.FC<GameScreenProps> = ({ navigation, route }) => {
             borderRadius: 6,
           }}
         >
-          <View style={{ flexDirection: "row" }}>
-            <GridItem
-              index={0}
-              onPress={onGridPress}
-              state={grids[0]}
-              isWinningIndex={winningIndexes.includes(0)}
-            />
-            <GridItem
-              index={1}
-              onPress={onGridPress}
-              state={grids[1]}
-              isWinningIndex={winningIndexes.includes(1)}
-            />
-            <GridItem
-              index={2}
-              onPress={onGridPress}
-              state={grids[2]}
-              isWinningIndex={winningIndexes.includes(2)}
-            />
-          </View>
-          <View style={{ flexDirection: "row" }}>
-            <GridItem
-              index={3}
-              onPress={onGridPress}
-              state={grids[3]}
-              isWinningIndex={winningIndexes.includes(3)}
-            />
-            <GridItem
-              index={4}
-              onPress={onGridPress}
-              state={grids[4]}
-              isWinningIndex={winningIndexes.includes(4)}
-            />
-            <GridItem
-              index={5}
-              onPress={onGridPress}
-              state={grids[5]}
-              isWinningIndex={winningIndexes.includes(5)}
-            />
-          </View>
-          <View style={{ flexDirection: "row" }}>
-            <GridItem
-              index={6}
-              onPress={onGridPress}
-              state={grids[6]}
-              isWinningIndex={winningIndexes.includes(6)}
-            />
-            <GridItem
-              index={7}
-              onPress={onGridPress}
-              state={grids[7]}
-              isWinningIndex={winningIndexes.includes(7)}
-            />
-            <GridItem
-              index={8}
-              onPress={onGridPress}
-              state={grids[8]}
-              isWinningIndex={winningIndexes.includes(8)}
-            />
-          </View>
+          {[
+            [0, 1, 2],
+            [3, 4, 5],
+            [6, 7, 8],
+          ].map(([ind1, ind2, ind3], i) => (
+            <View style={{ flexDirection: "row" }} key={`${i}`}>
+              <GridItem
+                index={ind1}
+                onPress={onGridPress}
+                state={grids[ind1]}
+                isWinningIndex={winningIndexes.includes(ind1)}
+              />
+              <GridItem
+                index={ind2}
+                onPress={onGridPress}
+                state={grids[ind2]}
+                isWinningIndex={winningIndexes.includes(ind2)}
+              />
+              <GridItem
+                index={ind3}
+                onPress={onGridPress}
+                state={grids[ind3]}
+                isWinningIndex={winningIndexes.includes(ind3)}
+              />
+            </View>
+          ))}
         </View>
       </View>
       <View style={{ flexDirection: "row" }}>
@@ -313,7 +219,7 @@ const GameScreen: React.FC<GameScreenProps> = ({ navigation, route }) => {
 
 interface GridItemProps {
   index: number;
-  state: "ZERO" | "CROSS" | "EMPTY";
+  state: "ZERO" | "CROSS" | undefined;
   onPress: (index: number) => void;
   isWinningIndex: boolean;
 }
@@ -324,7 +230,7 @@ const GridItem: React.FC<GridItemProps> = ({
   isWinningIndex,
 }) => (
   <TouchableOpacity
-    onPress={(event: GestureResponderEvent) => onPress(index)}
+    onPress={() => onPress(index)}
     style={{
       backgroundColor: "#2c3045",
       height: 98,
@@ -336,12 +242,12 @@ const GridItem: React.FC<GridItemProps> = ({
     }}
     activeOpacity={1}
   >
-    {state !== "EMPTY" ? (
+    {state !== undefined ? (
       <Text
         style={{
           width: "100%",
           textAlign: "center",
-          fontSize: isWinningIndex ? 65 : 45,
+          fontSize: isWinningIndex ? 65 : 55,
           fontFamily: Font.FontName,
           color: ForegroundColor,
           textShadowColor: isWinningIndex ? ForegroundColor : undefined,
