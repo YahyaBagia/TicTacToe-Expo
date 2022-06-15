@@ -4,8 +4,8 @@ const ForegroundColor = "#F8D332";
 export { BackgroundColor, ForegroundColor };
 
 export const Font = {
-  FontName: "AveriaSerifLibre",
-  FontFile: require("../../assets/Fonts/AveriaSerifLibre.ttf"),
+  FontName: "Kanit-Bold",
+  FontFile: require("../../assets/Fonts/Kanit-Bold.ttf"),
 };
 
 export const Images = {
