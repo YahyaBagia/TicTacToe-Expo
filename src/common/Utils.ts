@@ -1,9 +1,10 @@
+import { Platform } from "react-native";
 import { Audio } from "expo-av";
 import { AVPlaybackSource } from "expo-av/build/AV";
 
 export default class Utils {
   //#region Utilities
-  static sleep = (seconds = 1) => {
+  static Sleep = (seconds = 1) => {
     return new Promise<void>((resolve, reject) => {
       setTimeout(() => {
         resolve();
@@ -11,8 +12,10 @@ export default class Utils {
     });
   };
 
-  static playSound = async (audio: AVPlaybackSource) => {
+  static PlaySound = async (audio: AVPlaybackSource) => {
     const { sound } = await Audio.Sound.createAsync(audio);
     await sound.playAsync();
   };
+
+  static IsOnWeb = () => Platform.OS === "web";
 }
