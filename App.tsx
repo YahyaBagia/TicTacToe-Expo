@@ -1,37 +1,33 @@
-import React from "react";
+import { useCallback, useEffect, useState } from "react";
+import { View } from "react-native";
 
-import { useFonts } from "expo-font";
-import AppLoading from "expo-app-loading";
+import * as Fonts from "expo-font";
 import { StatusBar } from "expo-status-bar";
+import * as SplashScreen from "expo-splash-screen";
 
-import { NavigationContainer } from "@react-navigation/native";
-import { createStackNavigator } from "@react-navigation/stack";
-
-import HomeScreen from "./src/screens/HomeScreen";
-import GameScreen from "./src/screens/GameScreen";
-
-import { StackParamList } from "./src/Types";
 import { Font } from "./src/common/Const";
 
-const Stack = createStackNavigator<StackParamList>();
+import GameScreen from "./src/screens/GameScreen";
 
 const App = () => {
-  const [fontLoaded] = useFonts({
-    [Font.FontName]: Font.FontFile,
-  });
+  const [isFontLoaded, setIsFontLoaded] = useState(false);
 
-  if (!fontLoaded) {
-    return <AppLoading />;
-  }
+  useEffect(() => {
+    (async () => {
+      await SplashScreen.preventAutoHideAsync();
+      await Fonts.loadAsync({
+        [Font.FontName]: Font.FontFile,
+      });
+      setIsFontLoaded(true);
+      await SplashScreen.hideAsync();
+    })();
+  }, []);
+
+  if (!isFontLoaded) return <></>;
 
   return (
     <>
-      <NavigationContainer>
-        <Stack.Navigator screenOptions={{ headerShown: false }}>
-          <Stack.Screen name="HomeScreen" component={HomeScreen} />
-          <Stack.Screen name="GameScreen" component={GameScreen} />
-        </Stack.Navigator>
-      </NavigationContainer>
+      <GameScreen />
       <StatusBar style="light" />
     </>
   );
