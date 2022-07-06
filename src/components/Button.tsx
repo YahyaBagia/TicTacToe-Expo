@@ -1,5 +1,4 @@
-import React from "react";
-import { TouchableOpacity, Text, ViewStyle } from "react-native";
+import { Pressable, Text, ViewStyle } from "react-native";
 
 import { Font, ForegroundColor } from "../common/Const";
 
@@ -11,7 +10,7 @@ interface ButtonProps {
 
 const Button: React.FC<ButtonProps> = ({ title, onPress, style }) => {
   return (
-    <TouchableOpacity
+    <Pressable
       onPress={onPress}
       style={{
         height: 60,
@@ -19,6 +18,9 @@ const Button: React.FC<ButtonProps> = ({ title, onPress, style }) => {
         borderRadius: 5,
         alignItems: "center",
         justifyContent: "center",
+        marginVertical: 10,
+        marginHorizontal: 10,
+        flex: 1,
         ...style,
       }}
     >
@@ -32,7 +34,7 @@ const Button: React.FC<ButtonProps> = ({ title, onPress, style }) => {
       >
         {title}
       </Text>
-    </TouchableOpacity>
+    </Pressable>
   );
 };
 

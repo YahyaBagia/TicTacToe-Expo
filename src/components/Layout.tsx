@@ -1,10 +1,9 @@
-import React from "react";
 import {
   View,
   SafeAreaView,
   ViewStyle,
   Image,
-  TouchableOpacity,
+  Pressable,
   Linking,
 } from "react-native";
 
@@ -31,7 +30,7 @@ const Layout: React.FC<LayoutProps> = ({ children, style }) => {
         {children}
       </SafeAreaView>
       {Utils.IsOnWeb() && (
-        <TouchableOpacity
+        <Pressable
           style={{
             position: "absolute",
             top: 0,
@@ -45,7 +44,7 @@ const Layout: React.FC<LayoutProps> = ({ children, style }) => {
             source={Images.ForkOnGithub}
             style={{ width: 130, height: 130 }}
           />
-        </TouchableOpacity>
+        </Pressable>
       )}
     </View>
   );
