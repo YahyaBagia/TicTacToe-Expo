@@ -1,30 +1,30 @@
-import React, { useState, useEffect } from "react";
-import { View, Text, TouchableOpacity } from "react-native";
-import { RouteProp } from "@react-navigation/native";
-import { StackNavigationProp } from "@react-navigation/stack";
+import { useState, useEffect } from "react";
+import { View, Text } from "react-native";
 
 import Utils from "../common/Utils";
 import { Font, ForegroundColor, Sounds } from "../common/Const";
 
 import Layout from "../components/Layout";
 import Button from "../components/Button";
+import Divider from "../components/Divider";
+import GridItem from "../components/GridItem";
+import GameModeSelector from "../components/GameModeSelector";
 
-import { StackParamList } from "../Types";
+const winArrays = [
+  [0, 1, 2],
+  [3, 4, 5],
+  [6, 7, 8],
 
-type GameScreenNavigationProps = StackNavigationProp<
-  StackParamList,
-  "GameScreen"
->;
+  [0, 3, 6],
+  [1, 4, 7],
+  [2, 5, 8],
 
-type GameScreenRouteProp = RouteProp<StackParamList, "GameScreen">;
+  [0, 4, 8],
+  [2, 4, 6],
+];
 
-type GameScreenProps = {
-  navigation: GameScreenNavigationProps;
-  route: GameScreenRouteProp;
-};
-
-const GameScreen: React.FC<GameScreenProps> = ({ navigation, route }) => {
-  const { gameWith = "Bot" } = route.params;
+const GameScreen: React.FC = () => {
+  const [gameWith, setGameWith] = useState<"Bot" | "Player">("Bot");
 
   const [turn, setTurn] = useState<"CROSS" | "ZERO">("CROSS");
   const [grids, setGrids] = useState<Array<"CROSS" | "ZERO" | undefined>>([
@@ -81,19 +81,6 @@ const GameScreen: React.FC<GameScreenProps> = ({ navigation, route }) => {
   };
 
   const checkWinner = (): boolean => {
-    const winArrays = [
-      [0, 1, 2],
-      [3, 4, 5],
-      [6, 7, 8],
-
-      [0, 3, 6],
-      [1, 4, 7],
-      [2, 5, 8],
-
-      [0, 4, 8],
-      [2, 4, 6],
-    ];
-
     const winningIndexArray = winArrays.find((winArr) => {
       const [first, second, third] = winArr;
       if (
@@ -138,29 +125,98 @@ const GameScreen: React.FC<GameScreenProps> = ({ navigation, route }) => {
     setWinningIndexes([]);
   };
 
+  const isGameStarted = (): boolean => {
+    return grids.filter((v) => v !== undefined).length !== 0;
+  };
+
+  const getTurnLabelText = (): string => {
+    let emoji = "",
+      text = "";
+    if (gameState === "") {
+      if (turn === "CROSS") {
+        if (gameWith === "Bot") {
+          text = "Your Turn";
+        } else {
+          text = "X's Turn";
+        }
+      } else {
+        if (gameWith === "Bot") {
+          text = "Bot's Turn";
+        } else {
+          text = "O's Turn";
+        }
+      }
+    } else if (gameState === "Game Over") {
+      emoji = "⭐";
+      if (winner === "CROSS") {
+        text = " X Won ";
+      } else {
+        text = " O Won ";
+      }
+    } else {
+      emoji = "😑";
+      text = " Draw ";
+    }
+    return `${emoji}${text}${emoji}`;
+
+    // {gameState === ""
+    //       ? turn === "CROSS"
+    //         ? "X's Turn"
+    //         : "O's Turn"
+    //       : gameState === "Game Over"
+    //       ? winner === "CROSS"
+    //         ? "⭐ X Won ⭐"
+    //         : "⭐ O Won ⭐"
+    //       : "😑 Draw 😑"}
+
+    //  gameWith === "Bot"
+    //         ? turn === "CROSS"
+    //           ? "Your Turn"
+    //           : "Bot's Turn"
+  };
+
   return (
     <Layout style={{ justifyContent: "center" }}>
+      <View>
+        <Text
+          style={{
+            fontFamily: Font.FontName,
+            fontSize: 26,
+            color: ForegroundColor,
+            textAlign: "center",
+          }}
+        >
+          Opponent
+        </Text>
+        <View style={{ flexDirection: "row", alignItems: "center" }}>
+          <GameModeSelector
+            title="Friend"
+            onPress={() => setGameWith("Player")}
+            isSelected={gameWith === "Player"}
+            disabled={isGameStarted()}
+          />
+          <GameModeSelector
+            title="Bot"
+            onPress={() => setGameWith("Bot")}
+            isSelected={gameWith === "Bot"}
+            disabled={isGameStarted()}
+          />
+        </View>
+        <Divider />
+      </View>
       <Text
         style={{
           fontFamily: Font.FontName,
-          fontSize: 45,
+          fontSize: 40,
           color: ForegroundColor,
           textAlign: "center",
         }}
       >
-        {gameState === ""
-          ? turn === "CROSS"
-            ? "X's Turn"
-            : "O's Turn"
-          : gameState === "Game Over"
-          ? winner === "CROSS"
-            ? "⭐ X Won ⭐"
-            : "⭐ O Won ⭐"
-          : "😑 Draw 😑"}
+        {getTurnLabelText()}
       </Text>
       <View
         style={{
-          marginVertical: 20,
+          marginVertical: 12,
           justifyContent: "center",
           alignItems: "center",
         }}
@@ -201,68 +257,12 @@ const GameScreen: React.FC<GameScreenProps> = ({ navigation, route }) => {
           ))}
         </View>
       </View>
+      <Divider />
       <View style={{ flexDirection: "row" }}>
-        <Button
-          title={"Reset"}
-          onPress={onReset}
-          style={{ marginVertical: 10, marginHorizontal: 10, flex: 1 }}
-        />
-        <Button
-          title={"Exit"}
-          onPress={navigation.goBack}
-          style={{ marginVertical: 10, marginHorizontal: 10, flex: 1 }}
-        />
+        <Button title={"Reset"} onPress={onReset} />
       </View>
     </Layout>
   );
 };
-
-interface GridItemProps {
-  index: number;
-  state: "ZERO" | "CROSS" | undefined;
-  onPress: (index: number) => void;
-  isWinningIndex: boolean;
-}
-const GridItem: React.FC<GridItemProps> = ({
-  state,
-  index,
-  onPress,
-  isWinningIndex,
-}) => (
-  <TouchableOpacity
-    onPress={() => onPress(index)}
-    style={{
-      backgroundColor: "#2c3045",
-      height: 98,
-      width: 98,
-      margin: 1,
-      borderRadius: 6,
-      alignItems: "center",
-      justifyContent: "center",
-    }}
-    activeOpacity={1}
-  >
-    {state !== undefined ? (
-      <Text
-        style={{
-          width: "100%",
-          textAlign: "center",
-          fontSize: isWinningIndex ? 65 : 55,
-          fontFamily: Font.FontName,
-          color: ForegroundColor,
-          textShadowColor: isWinningIndex ? ForegroundColor : undefined,
-          textShadowOffset: isWinningIndex
-            ? { width: -1, height: 1 }
-            : undefined,
-          textShadowRadius: isWinningIndex ? 15 : undefined,
-        }}
-      >
-        {state === "CROSS" ? "X" : "O"}
-      </Text>
-    ) : (
-      <></>
-    )}
-  </TouchableOpacity>
-);
 
 export default GameScreen;
