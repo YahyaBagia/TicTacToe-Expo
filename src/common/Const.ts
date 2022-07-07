@@ -1,4 +1,4 @@
-const BackgroundColor = "212845";
+const BackgroundColor = "#212845";
 const ForegroundColor = "#F8D332";
 
 export { BackgroundColor, ForegroundColor };
@@ -10,6 +10,7 @@ export const Font = {
 
 export const Images = {
   ForkOnGithub: require("../../assets/ForkOnGithub.png"),
+  Splash: require("../../assets/splash.png"),
 };
 
 export const Sounds = {

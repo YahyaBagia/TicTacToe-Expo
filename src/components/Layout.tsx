@@ -16,10 +16,15 @@ interface LayoutProps {
 
 const Layout: React.FC<LayoutProps> = ({ children, style }) => {
   return (
-    <View style={{ backgroundColor: "#373d57", flex: 1, alignItems: "center" }}>
+    <View
+      style={{
+        backgroundColor: BackgroundColor,
+        flex: 1,
+        alignItems: "center",
+      }}
+    >
       <SafeAreaView
         style={{
-          backgroundColor: BackgroundColor,
           flex: 1,
           width: "100%",
           maxWidth: 480,
