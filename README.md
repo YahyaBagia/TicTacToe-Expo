@@ -2,7 +2,6 @@
 <br />
 <p align="center">
   <a href="https://github.com/YahyaBagia/TicTacToe-Expo/">
-    <img src="ReadMeAssets/Logo.png" alt="Logo">
     <p>
       <strong><h1 align="center">⭐ Tic-Tac-Toe ⭐</h1></strong>
     </p>
@@ -31,13 +30,12 @@
 
 <table>
 <tr>
-<td><img src="ReadMeAssets/Screenshot1.png" alt="Screenshot"></td>
-<td><img src="ReadMeAssets/Screenshot2.png" alt="Screenshot"></td>
-<td><img src="ReadMeAssets/Screenshot3.png" alt="Screenshot"></td>
+<td><img src="ReadMeAssets/Screenshot1.jpeg" alt="Screenshot"></td>
+<td><img src="ReadMeAssets/Screenshot2.jpeg" alt="Screenshot"></td>
 </tr>
 </table>
 
-A simple Tic-Tac-Toe game to be played against the computer or another player. While there are greate implementations of Tic-Tac-Toe are available on the internet, mine is just a small contribution to the list of open source implementations. It was made as a part of practicing react-native with [typescript](https://www.typescriptlang.org/) using [expo](https://www.expo.io/).
+A simple Tic-Tac-Toe game to be played against the computer or another player. While there are greate implementations of Tic-Tac-Toe are available on the internet, mine is just a small contribution to the open source communitity. It was made as a part of me practicing react-native with [typescript](https://www.typescriptlang.org/) and [expo](https://www.expo.io/).
 
 <!-- GETTING STARTED -->
 
@@ -79,7 +77,7 @@ yarn
 
 4. For further Expo commands
 
-- Visit [Expo docs](https://docs.expo.io/introduction/walkthrough/#open-the-project-with-the-expo-client) link.
+- Visit [Expo docs](https://docs.expo.io/introduction/walkthrough/#open-the-project-with-the-expo-client).
 
 <!-- CONTRIBUTING -->
 
