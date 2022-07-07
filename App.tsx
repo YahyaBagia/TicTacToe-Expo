@@ -1,11 +1,11 @@
-import { useCallback, useEffect, useState } from "react";
-import { View } from "react-native";
+import { useEffect, useState } from "react";
+import { View, Image } from "react-native";
 
 import * as Fonts from "expo-font";
 import { StatusBar } from "expo-status-bar";
 import * as SplashScreen from "expo-splash-screen";
 
-import { Font } from "./src/common/Const";
+import { BackgroundColor, Font, Images } from "./src/common/Const";
 
 import GameScreen from "./src/screens/GameScreen";
 
@@ -23,7 +23,16 @@ const App = () => {
     })();
   }, []);
 
-  if (!isFontLoaded) return <></>;
+  if (!isFontLoaded)
+    return (
+      <View style={{ flex: 1, backgroundColor: BackgroundColor }}>
+        <Image
+          source={Images.Splash}
+          style={{ height: "100%", width: "100%" }}
+          resizeMode={"contain"}
+        />
+      </View>
+    );
 
   return (
     <>
