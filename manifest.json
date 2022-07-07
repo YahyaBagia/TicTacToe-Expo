@@ -1,5 +1,5 @@
 {
-  "background_color": "#ffffff",
+  "background_color": "#212845",
   "description": "TicTacToe game made with Expo (Runs on Android, iOS and Web)",
   "display": "standalone",
   "lang": "en",
