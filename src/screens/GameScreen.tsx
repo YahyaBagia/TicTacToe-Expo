@@ -34,7 +34,9 @@ const GameScreen: React.FC = () => {
     ""
   );
   const [winner, setWinner] = useState<"CROSS" | "ZERO" | undefined>(undefined);
-  const [winningIndexes, setWinningIndexes] = useState<number[]>([]);
+  const [winningIndexes, setWinningIndexes] = useState<Array<Array<number>>>(
+    []
+  );
 
   useEffect(() => {
     if (grids.includes("CROSS") === false && grids.includes("ZERO") === false) {
@@ -81,7 +83,7 @@ const GameScreen: React.FC = () => {
   };
 
   const checkWinner = (): boolean => {
-    const winningIndexArray = winArrays.find((winArr) => {
+    const winningIndexArray = winArrays.filter((winArr) => {
       const [first, second, third] = winArr;
       if (
         grids[first] !== undefined &&
@@ -92,9 +94,9 @@ const GameScreen: React.FC = () => {
       }
     });
 
-    if (winningIndexArray !== undefined) {
-      const [first] = winningIndexArray;
-      const winner = grids[first];
+    if (winningIndexArray.length > 0) {
+      const [firstWinArray] = winningIndexArray;
+      const winner = grids[firstWinArray[0]];
       setWinner(winner);
       setWinningIndexes(winningIndexArray);
       return true;
@@ -149,30 +151,28 @@ const GameScreen: React.FC = () => {
     } else if (gameState === "Game Over") {
       emoji = "⭐";
       if (winner === "CROSS") {
-        text = " X Won ";
+        if (gameWith === "Bot") {
+          text = " You Won ";
+        } else {
+          text = " X Won ";
+        }
       } else {
-        text = " O Won ";
+        if (gameWith === "Bot") {
+          text = " Bot Won ";
+        } else {
+          text = " O Won ";
+        }
       }
     } else {
       emoji = "😑";
       text = " Draw ";
     }
     return `${emoji}${text}${emoji}`;
+  };
 
-    // {gameState === ""
-    //       ? turn === "CROSS"
-    //         ? "X's Turn"
-    //         : "O's Turn"
-    //       : gameState === "Game Over"
-    //       ? winner === "CROSS"
-    //         ? "⭐ X Won ⭐"
-    //         : "⭐ O Won ⭐"
-    //       : "😑 Draw 😑"}
-
-    //  gameWith === "Bot"
-    //         ? turn === "CROSS"
-    //           ? "Your Turn"
-    //           : "Bot's Turn"
+  const isInWinIndex = (index: number): boolean => {
+    const winIn = winningIndexes.flat();
+    return winIn.includes(index);
   };
 
   return (
@@ -239,19 +239,19 @@ const GameScreen: React.FC = () => {
                 index={ind1}
                 onPress={onGridPress}
                 state={grids[ind1]}
-                isWinningIndex={winningIndexes.includes(ind1)}
+                isWinningIndex={isInWinIndex(ind1)}
               />
               <GridItem
                 index={ind2}
                 onPress={onGridPress}
                 state={grids[ind2]}
-                isWinningIndex={winningIndexes.includes(ind2)}
+                isWinningIndex={isInWinIndex(ind2)}
               />
               <GridItem
                 index={ind3}
                 onPress={onGridPress}
                 state={grids[ind3]}
-                isWinningIndex={winningIndexes.includes(ind3)}
+                isWinningIndex={isInWinIndex(ind3)}
               />
             </View>
           ))}
