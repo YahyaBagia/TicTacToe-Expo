@@ -8,6 +8,7 @@ import * as SplashScreen from "expo-splash-screen";
 import { BackgroundColor, Font, Images } from "./src/common/Const";
 
 import GameScreen from "./src/screens/GameScreen";
+import Utils from "./src/common/Utils";
 
 const App = () => {
   const [isFontLoaded, setIsFontLoaded] = useState(false);
@@ -18,6 +19,7 @@ const App = () => {
       await Fonts.loadAsync({
         [Font.FontName]: Font.FontFile,
       });
+      await Utils.Sleep(2);
       setIsFontLoaded(true);
       await SplashScreen.hideAsync();
     })();
